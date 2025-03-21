@@ -1,15 +1,23 @@
 ---
+import "../styles/global.css";
 const matches = import.meta.glob("../blog/posts/*.mdx", { eager: true });
 const posts: any[] = Object.values(matches);
 ---
 
-<div class="text-2xl">hello</div>
-<ul>
-  {
-    posts.map((post) => (
-      <li>
-        <a href={`/blog/${post.data?.slug}`}>{post.title}</a>
-      </li>
-    ))
-  }
-</ul>
+<div class="max-w-4xl mx-auto py-8 px-4">
+  <h1 class="text-4xl font-bold mb-8 text-indigo-800">My Blog Posts</h1>
+  <ul class="space-y-4">
+    {
+      posts.map((post) => (
+        <li class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <a
+            href={`/blog/${post.slug}`}
+            class="block p-4 text-xl text-indigo-600 hover:text-indigo-800 font-medium"
+          >
+            {post.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
