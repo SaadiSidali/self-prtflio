@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { formatDate } from "../../utils/date";
+import { getEntry } from "astro:content";
+import { render } from "astro:content";
+
+// Generate static paths for all blog posts
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const blogPost = await getEntry("blog", Astro.params.slug);
+if (!blogPost) {
+  // Handle Error, for example:
+  throw new Error("Could not find blog post 1");
+}
+const { Content, headings, remarkPluginFrontmatter } = await render(blogPost);
+---
+
+<Layout>
+  <article class="mx-auto max-w-3xl px-4 py-8">
+    <Content />
+  </article>
+</Layout>
