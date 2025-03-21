@@ -8,7 +8,7 @@ const posts: any[] = Object.values(matches);
   {
     posts.map((post) => (
       <li>
-        <a href={`/blog/${post.data.slug}`}>{post.title}</a>
+        <a href={`/blog/${post.data?.slug}`}>{post.title}</a>
       </li>
     ))
   }
